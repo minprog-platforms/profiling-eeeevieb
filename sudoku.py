@@ -45,8 +45,7 @@ class Sudoku:
         #            row = self._grid[y]
         #            value = int(row[x])
 
-        row = self._grid[y]
-        value = int(row[x])
+        value = int(self._grid[y][x])
 
         return value
 
