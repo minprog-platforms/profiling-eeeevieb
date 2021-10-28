@@ -18,8 +18,7 @@ class Sudoku:
                 row.append(int(element))
 
             self._grid.append(row)
-        
-        print(f'self: {self._grid}')
+
 
     def place(self, value: int, x: int, y: int) -> None:
         """Place value at x,y."""
@@ -154,12 +153,15 @@ class Sudoku:
             for value in values:
                 if value not in self.column_values(i):
                     result = False
+                    break
 
                 if value not in self.row_values(i):
                     result = False
+                    break
 
                 if value not in self.block_values(i):
                     result = False
+                    break
 
         return result
 
@@ -183,6 +185,5 @@ def load_from_file(filename: str) -> Sudoku:
             line = line.strip().replace(",", "")
 
             puzzle.append(line)
-        print(puzzle)
 
     return Sudoku(puzzle)
