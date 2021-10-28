@@ -1,42 +1,51 @@
 from __future__ import annotations
 from typing import Iterable, Sequence
+import numpy
 
 
 class Sudoku:
     """A mutable sudoku puzzle."""
 
     def __init__(self, puzzle: Iterable[Iterable]):
-        self._grid: list[str] = []
+        self._grid: list[list[int]] = []
 
         for puzzle_row in puzzle:
-            row = ""
+            #row = ""
+            row = []
 
             for element in puzzle_row:
-                row += str(element)
+                #row += str(element)
+                row.append(int(element))
 
             self._grid.append(row)
+        
+        print(f'self: {self._grid}')
 
     def place(self, value: int, x: int, y: int) -> None:
         """Place value at x,y."""
         row = self._grid[y]
         new_row = ""
 
-        for i in range(9):
-            if i == x:
-                new_row += str(value)
-            else:
-                new_row += row[i]
+        #for i in range(9):
+        #    if i == x:
+        #        new_row += str(value)
+        #    else:
+        #        new_row += row[i]
 
-        self._grid[y] = new_row
+        #self._grid[y] = new_row
+
+        self._grid[y][x] = value
 
     def unplace(self, x: int, y: int) -> None:
         """Remove (unplace) a number at x,y."""
-        row = self._grid[y]
-        new_row = row[:x] + "0" + row[x + 1:]
-        self._grid[y] = new_row
+        #row = self._grid[y]
+        #new_row = row[:x] + "0" + row[x + 1:]
+        #self._grid[y] = new_row
 
-    def value_at(self, x: int, y: int) -> int:
-        """Returns the value at x,y."""
+        self._grid[y][x] = 0
+
+    # def value_at(self, x: int, y: int) -> int:
+    #     """Returns the value at x,y."""
         #value = -1
 
         #for i in range(9):
@@ -45,9 +54,9 @@ class Sudoku:
         #            row = self._grid[y]
         #            value = int(row[x])
 
-        value = int(self._grid[y][x])
+        # value = int(self._grid[y][x])
 
-        return value
+        # return value
 
     def options_at(self, x: int, y: int) -> Sequence[int]:
         """Returns all possible values (options) at x,y."""
@@ -82,7 +91,7 @@ class Sudoku:
 
         for y in range(9):
             for x in range(9):
-                if self.value_at(x, y) == 0 and next_x == -1 and next_y == -1:
+                if self._grid[y][x] == 0 and next_x == -1 and next_y == -1:
                     next_x, next_y = x, y
 
         return next_x, next_y
@@ -91,8 +100,11 @@ class Sudoku:
         """Returns all values at i-th row."""
         values = []
 
-        for j in range(9):
-            values.append(self.value_at(j, i))
+        # for j in range(9):
+        #     values.append(self.value_at(j, i))
+
+        values = self._grid[i]
+
 
         return values
 
@@ -100,8 +112,12 @@ class Sudoku:
         """Returns all values at i-th column."""
         values = []
 
-        for j in range(9):
-            values.append(self.value_at(i, j))
+        # for j in range(9):
+        #     values.append(self.value_at(i, j))
+
+        #values1 = self._grid[:][i]
+
+        values = [row[i] for row in self._grid]
 
         return values
 
@@ -120,7 +136,8 @@ class Sudoku:
 
         for x in range(x_start, x_start + 3):
             for y in range(y_start, y_start + 3):
-                values.append(self.value_at(x, y))
+                #values.append(self.value_at(x, y))
+                values.append(self._grid[y][x])
 
         return values
 
@@ -150,7 +167,7 @@ class Sudoku:
         representation = ""
 
         for row in self._grid:
-            representation += row + "\n"
+            representation += ''.join(str(e) for e in row) + "\n"
 
         return representation.strip()
 
@@ -166,5 +183,6 @@ def load_from_file(filename: str) -> Sudoku:
             line = line.strip().replace(",", "")
 
             puzzle.append(line)
+        print(puzzle)
 
     return Sudoku(puzzle)
