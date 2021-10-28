@@ -44,8 +44,8 @@ class Sudoku:
 
         self._grid[y][x] = 0
 
-    # def value_at(self, x: int, y: int) -> int:
-    #     """Returns the value at x,y."""
+    def value_at(self, x: int, y: int) -> int:
+        """Returns the value at x,y."""
         #value = -1
 
         #for i in range(9):
@@ -54,9 +54,9 @@ class Sudoku:
         #            row = self._grid[y]
         #            value = int(row[x])
 
-        # value = int(self._grid[y][x])
+        value = int(self._grid[y][x])
 
-        # return value
+        return value
 
     def options_at(self, x: int, y: int) -> Sequence[int]:
         """Returns all possible values (options) at x,y."""
