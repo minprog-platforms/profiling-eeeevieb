@@ -113,23 +113,18 @@ class Sudoku:
         """
         values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-        result = True
-
         for i in range(9):
             for value in values:
                 if value not in self.column_values(i):
-                    result = False
-                    break
+                    return False
 
                 if value not in self.row_values(i):
-                    result = False
-                    break
+                    return False
 
                 if value not in self.block_values(i):
-                    result = False
-                    break
+                    return False
 
-        return result
+        return True
 
     def __str__(self) -> str:
         representation = ""
