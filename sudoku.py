@@ -9,50 +9,27 @@ class Sudoku:
         self._grid: list[list[int]] = []
 
         for puzzle_row in puzzle:
-            #row = ""
             row = []
 
             for element in puzzle_row:
-                #row += str(element)
                 row.append(int(element))
 
             self._grid.append(row)
 
-
     def place(self, value: int, x: int, y: int) -> None:
         """Place value at x,y."""
-        row = self._grid[y]
-        new_row = ""
-
-        #for i in range(9):
-        #    if i == x:
-        #        new_row += str(value)
-        #    else:
-        #        new_row += row[i]
-
-        #self._grid[y] = new_row
 
         self._grid[y][x] = value
 
     def unplace(self, x: int, y: int) -> None:
         """Remove (unplace) a number at x,y."""
-        #row = self._grid[y]
-        #new_row = row[:x] + "0" + row[x + 1:]
-        #self._grid[y] = new_row
 
         self._grid[y][x] = 0
 
     def value_at(self, x: int, y: int) -> int:
         """Returns the value at x,y."""
-        #value = -1
 
-        #for i in range(9):
-        #    for j in range(9):
-        #        if i == x and j == y:
-        #            row = self._grid[y]
-        #            value = int(row[x])
-
-        value = int(self._grid[y][x])
+        value = self._grid[y][x]
 
         return value
 
@@ -98,22 +75,13 @@ class Sudoku:
         """Returns all values at i-th row."""
         values = []
 
-        # for j in range(9):
-        #     values.append(self.value_at(j, i))
-
         values = self._grid[i]
-
 
         return values
 
     def column_values(self, i: int) -> Sequence[int]:
         """Returns all values at i-th column."""
         values = []
-
-        # for j in range(9):
-        #     values.append(self.value_at(i, j))
-
-        #values1 = self._grid[:][i]
 
         values = [row[i] for row in self._grid]
 
@@ -134,7 +102,6 @@ class Sudoku:
 
         for x in range(x_start, x_start + 3):
             for y in range(y_start, y_start + 3):
-                #values.append(self.value_at(x, y))
                 values.append(self._grid[y][x])
 
         return values
@@ -179,8 +146,6 @@ def load_from_file(filename: str) -> Sudoku:
 
     with open(filename) as f:
         for line in f:
-
-            # strip newline and remove all commas
             line = line.strip().replace(",", "")
 
             puzzle.append(line)
